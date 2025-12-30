@@ -159,7 +159,7 @@ const winterMonths = [
 ];
 
 // Секретный код (замени на свою дату: ДДММ)
-const SECRET_CODE = "1512"; // 15 декабря - пример, измени на свою дату
+const SECRET_CODE = "2405"; // 15 декабря - пример, измени на свою дату
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
