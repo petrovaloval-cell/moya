@@ -9,7 +9,260 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Marck+Script&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
     <!-- YouTube API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+    // YouTube Player
+    let player;
+    let isPlaying = false;
+    let playerReady = false;
+    const VIDEO_ID = '5wZ7LNZ9Q8w'; // Егор Крид - Невеста
+    
+    // Функция для инициализации плеера (вызывается YouTube API)
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: VIDEO_ID,
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'disablekb': 1,
+                'fs': 0,
+                'loop': 1,
+                'modestbranding': 1,
+                'playlist': VIDEO_ID,
+                'rel': 0,
+                'iv_load_policy': 3
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError
+            }
+        });
+    }
+    
+    function onPlayerReady(event) {
+        console.log("✅ Песня 'Невеста' готова к воспроизведению");
+        playerReady = true;
+        
+        // Устанавливаем громкость 70%
+        event.target.setVolume(70);
+        
+        // Меняем текст кнопки
+        const control = document.getElementById('musicControl');
+        const icon = document.getElementById('music-icon');
+        const title = document.querySelector('.song-title');
+        
+        control.onclick = toggleMusic;
+        control.title = "Егор Крид - Невеста (нажми для управления)";
+        icon.className = 'fas fa-play-circle';
+        title.textContent = 'Нажми, чтобы включить нашу песню';
+        
+        // Показываем подсказку через 3 секунды
+        setTimeout(() => {
+            if (!isPlaying) {
+                showMusicHint();
+            }
+        }, 3000);
+    }
+    
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            isPlaying = true;
+            updateMusicIcon();
+            console.log("▶️ Музыка играет");
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            isPlaying = false;
+            updateMusicIcon();
+            console.log("⏸️ Музыка на паузе");
+        } else if (event.data === YT.PlayerState.ENDED) {
+            // Автоматически перезапускаем
+            player.playVideo();
+        }
+    }
+    
+    function onPlayerError(event) {
+        console.error("❌ Ошибка YouTube плеера:", event.data);
+        showNotification('Не удалось загрузить песню. Проверь интернет!');
+    }
+    
+    // Включение музыки при первом клике
+    function enableMusic() {
+        if (!playerReady) {
+            showNotification('Песня ещё загружается...');
+            return;
+        }
+        
+        const control = document.getElementById('musicControl');
+        const icon = document.getElementById('music-icon');
+        const title = document.querySelector('.song-title');
+        
+        // Меняем обработчик
+        control.onclick = toggleMusic;
+        
+        // Пробуем включить музыку
+        player.playVideo().then(() => {
+            console.log("🎵 Музыка успешно запущена");
+            isPlaying = true;
+            updateMusicIcon();
+            title.textContent = 'Егор Крид - Невеста';
+            
+            // Прячем подсказку если она есть
+            const hint = document.querySelector('.music-hint');
+            if (hint) hint.remove();
+            
+        }).catch(error => {
+            console.error("Ошибка запуска:", error);
+            showNotification('Нажми ещё раз чтобы включить музыку');
+        });
+    }
+    
+    // Переключение музыки (вкл/выкл)
+    function toggleMusic() {
+        if (!playerReady) {
+            showNotification('Песня ещё загружается...');
+            return;
+        }
+        
+        if (isPlaying) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    }
+    
+    // Изменение громкости
+    function changeVolume(volume) {
+        if (player && playerReady) {
+            player.setVolume(volume);
+            console.log("🔊 Громкость установлена:", volume);
+        }
+    }
+    
+    // Обновление иконки
+    function updateMusicIcon() {
+        const icon = document.getElementById('music-icon');
+        if (isPlaying) {
+            icon.className = 'fas fa-volume-up';
+            icon.style.color = '#d81b60';
+        } else {
+            icon.className = 'fas fa-volume-mute';
+            icon.style.color = '#666';
+        }
+    }
+    
+    // Воспроизведение песни из письма
+    function playOurSong() {
+        if (player && playerReady) {
+            player.playVideo();
+            isPlaying = true;
+            updateMusicIcon();
+            
+            showNotification('Играет "Невеста" - Егор Крид');
+            
+            // Скролл к кнопке управления
+            document.querySelector('.music-control').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+    
+    // Показ подсказки про музыку
+    function showMusicHint() {
+        if (isPlaying) return;
+        
+        const hint = document.createElement('div');
+        hint.className = 'music-hint';
+        hint.innerHTML = `
+            <p>🎵 <strong>Важная часть подарка!</strong></p>
+            <p>Нажми на нотку справа вверху, чтобы включить нашу песню</p>
+            <small>Егор Крид - "Невеста"</small>
+        `;
+        hint.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #1a237e, #d81b60);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 9999;
+            animation: slideInRight 0.5s ease;
+            max-width: 300px;
+            border-left: 5px solid #ffd700;
+        `;
+        document.body.appendChild(hint);
+        
+        setTimeout(() => {
+            hint.style.animation = 'slideOutRight 0.5s ease';
+            setTimeout(() => hint.remove(), 500);
+        }, 8000);
+    }
+    
+    // Уведомления
+    function showNotification(text) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = text;
+        notification.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideIn 0.5s ease;
+            border-left: 5px solid #d81b60;
+            color: #1a237e;
+            font-weight: 600;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.5s ease';
+            setTimeout(() => notification.remove(), 500);
+        }, 3000);
+    }
+    
+    // Добавляем стили для анимаций
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        .song-details {
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+        .song-details small {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Автоматически показываем подсказку при загрузке
+    window.addEventListener('load', function() {
+        setTimeout(showMusicHint, 2000);
+    });
+</script>
 </head>
 <body>
     <!-- Снегопад -->
