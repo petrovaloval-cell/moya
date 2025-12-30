@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12 зимних месяцев с тобой ❄️❤️</title>
+    <title>12 месяцев с тобой ❤️</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Marck+Script&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❄️</text></svg>">
-   
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 </head>
 <body>
     <!-- Снегопад -->
@@ -25,44 +24,62 @@
         <div class="snowflake">❆</div>
     </div>
 
-    <!-- Скрытый YouTube плеер для песни "Невеста" -->
-    <div id="player-container" style="display:none;">
-        <div id="player"></div>
-    </div>
+    <!-- Аудио плеер -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="our-song.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
 
     <!-- Музыкальный контрол -->
-    <div class="music-control" onclick="toggleMusic()" title="Егор Крид - Невеста">
-        <i id="music-icon" class="fas fa-volume-mute"></i>
+    <div class="music-control" onclick="toggleMusic()" id="musicControl">
+        <i id="music-icon" class="fas fa-play-circle pulse-icon"></i>
         <div class="song-info">
-            <span class="song-title">Егор Крид - Невеста</span>
-            <div class="volume-slider">
-                <input type="range" min="0" max="100" value="50" id="volume-slider" oninput="changeVolume(this.value)">
+            <span class="song-title">Нажми, чтобы включить нашу песню</span>
+            <div class="song-details">
+                <small>Егор Крид - Невеста</small>
+            </div>
+            <div class="volume-control">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" min="0" max="100" value="70" id="volume-slider" oninput="changeVolume(this.value)">
+                <i class="fas fa-volume-up"></i>
             </div>
         </div>
+    </div>
+
+    <!-- Подсказка для музыки -->
+    <div class="music-hint" id="musicHint">
+        <div class="hint-content">
+            <i class="fas fa-music"></i>
+            <div>
+                <p><strong>Важная часть подарка!</strong></p>
+                <p>Нажми на нотку, чтобы включить нашу песню</p>
+            </div>
+        </div>
+        <button onclick="closeHint()">✕</button>
     </div>
 
     <!-- Главная страница -->
     <section class="hero" id="home">
         <div class="container">
             <div class="sparkle">✨</div>
-            <h1 class="main-title">Двенадцать <span class="heartbeat">зимних</span> месяцев</h1>
-            <h2 class="subtitle">с самой тёплой девушкой</h2>
+            <h1 class="main-title">Двенадцать <span class="heartbeat">месяцев</span></h1>
+            <h2 class="subtitle">с самой особенной девушкой</h2>
             
             <div class="hero-content">
                 <div class="polaroid-frame">
                     <div class="polaroid">
                         <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Наше фото" class="polaroid-img">
-                        <div class="polaroid-label">Наша зима, 2025</div>
+                        <div class="polaroid-label">Наш год, 2025</div>
                     </div>
                 </div>
                 
                 <div class="hero-text">
-                    <p class="lead">Каждая снежинка — как наше мгновение,<br>уникальное и неповторимое.</p>
-                    <p class="quote">«Каждую зиму, когда мы встречаемся,<br>холод становиться самым тёплым временем года»</p>
+                    <p class="lead">Каждый месяц — как отдельная история,<br>уникальная и неповторимая.</p>
+                    <p class="quote">«В 2025 году, когда мы были вместе,<br>каждый день становился маленьким чудом»</p>
                     
                     <button class="cta-button" onclick="startJourney()">
-                        <i class="fas fa-snowflake"></i>
-                        <span>Открыть наш зимний календарь</span>
+                        <i class="fas fa-heart"></i>
+                        <span>Открыть наш календарь</span>
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -78,12 +95,12 @@
     <section class="calendar-section" id="calendar">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-calendar-alt"></i> Хроника нашей зимы</h2>
+                <h2><i class="fas fa-calendar-alt"></i> Хроника 2025 года</h2>
                 <p class="section-subtitle">12 месяцев = 12 причин любить тебя ещё сильнее</p>
-                <div class="winter-divider">
-                    <div class="snowball"></div>
-                    <div class="snowball"></div>
-                    <div class="snowball"></div>
+                <div class="year-divider">
+                    <div class="divider-dot"></div>
+                    <div class="divider-dot"></div>
+                    <div class="divider-dot"></div>
                 </div>
             </div>
             
@@ -91,9 +108,9 @@
                 <!-- Месяцы будут добавлены через JavaScript -->
             </div>
             
-            <div class="winter-quote">
+            <div class="year-quote">
                 <i class="fas fa-quote-left"></i>
-                <p>Зима — это не время года, а состояние души, когда рядом тот, кто согревает даже в лютый мороз.</p>
+                <p>2025 год — это не просто даты в календаре, а история, которую мы пишем вместе каждый день.</p>
                 <i class="fas fa-quote-right"></i>
             </div>
         </div>
@@ -103,14 +120,14 @@
     <div class="month-modal" id="monthModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalMonthTitle">Январь: Наша встреча</h3>
+                <h3 id="modalMonthTitle">Январь: Начало года</h3>
                 <button class="close-modal" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-left">
-                    <div class="photo-frame winter-frame">
+                    <div class="photo-frame year-frame">
                         <img id="modalPhoto" src="" alt="Фото месяца">
-                        <div class="snow-overlay"></div>
+                        <div class="photo-overlay"></div>
                     </div>
                     <div class="photo-info">
                         <div class="info-item">
@@ -118,15 +135,15 @@
                             <span id="photoCount">5 фото</span>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-temperature-low"></i>
-                            <span id="monthTemp">-5°C, но +25 в сердце</span>
+                            <i class="fas fa-heart"></i>
+                            <span id="monthFeeling">Счастливые моменты</span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-right">
                     <div class="date-badge" id="modalDate">
                         <i class="far fa-calendar"></i>
-                        <span>15 января</span>
+                        <span>1 января 2025</span>
                     </div>
                     
                     <div class="month-story">
@@ -134,16 +151,16 @@
                         <p id="modalStory">Текст истории появится здесь...</p>
                     </div>
                     
-                    <div class="winter-memory">
-                        <i class="fas fa-mitten"></i>
+                    <div class="year-memory">
+                        <i class="fas fa-star"></i>
                         <div>
-                            <h5>Зимняя память</h5>
+                            <h5>Яркое воспоминание</h5>
                             <p id="modalMemory">Самое тёплое воспоминание этого месяца...</p>
                         </div>
                     </div>
                     
                     <div class="month-quote">
-                        <i class="fas fa-icicles"></i>
+                        <i class="fas fa-heart"></i>
                         <blockquote id="modalQuote">"Цитата месяца..."</blockquote>
                     </div>
                 </div>
@@ -151,31 +168,31 @@
         </div>
     </div>
 
-    <!-- Секретное письмо в конверте -->
+    <!-- Конверт -->
     <section class="envelope-section">
         <div class="container">
             <div class="envelope-container" onclick="openEnvelope()">
                 <div class="envelope" id="envelope">
                     <div class="envelope-flap"></div>
                     <div class="envelope-body">
-                        <i class="fas fa-seedling"></i>
-                        <p>Письмо от Деда Мороза</p>
-                        <small>Откроется только при -25°C тепла</small>
+                        <i class="fas fa-heart"></i>
+                        <p>Секретное письмо</p>
+                        <small>Только для тебя</small>
                     </div>
                 </div>
                 <div class="envelope-shadow"></div>
             </div>
-            <p class="envelope-hint">Нажми на конверт, чтобы увидеть чудо</p>
+            <p class="envelope-hint">Нажми на конверт, когда будешь готова</p>
         </div>
     </section>
 
-    <!-- Секретная область (откроется после конверта) -->
+    <!-- Секретная область с кодом -->
     <section class="secret-section" id="secretSection" style="display: none;">
         <div class="container">
             <div class="secret-container">
                 <div class="frosted-glass">
-                    <h3><i class="fas fa-key"></i> Зимний шифр</h3>
-                    <p>Введи дату, самого яркого дня в году <br><small>(ДДММ, например 1512 для 15 декабря)</small></p>
+                    <h3><i class="fas fa-key"></i> Наш секретный код</h3>
+                    <p>Введи дату, которая значит для нас больше всего<br><small>(ДДММ, например 2405 для 24 мая)</small></p>
                     
                     <div class="code-input">
                         <div class="code-dots">
@@ -188,109 +205,109 @@
                     </div>
                     
                     <button class="unlock-btn" onclick="checkSecretCode()">
-                        <i class="fas fa-lock-open"></i> Растопить лёд
+                        <i class="fas fa-lock-open"></i> Открыть письмо
                     </button>
                     
                     <p class="error-msg" id="codeError"></p>
                     
                     <div class="hint-box">
                         <i class="fas fa-lightbulb"></i>
-                        <p>Подсказка: вспомни день, с чего все начиналось</p>
+                        <p>Подсказка: вспомни наш самый важный день</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Финальное письмо (откроется после кода) -->
+    <!-- Финальное письмо -->
     <section class="letter-section" id="letterSection" style="display: none;">
         <div class="container">
             <div class="letter-wrapper">
-                <div class="letter-paper winter-letter">
+                <div class="letter-paper">
                     <div class="letter-header">
-                        <div class="letter-snowflake">❄️</div>
-                        <h2>Моей будущей невесте</h2>
-                        <div class="letter-date">31 декабря, под бой курантов</div>
+                        <div class="letter-heart">❤️</div>
+                        <h2>Для моей единственной</h2>
+                        <div class="letter-date">31 декабря 2025 года</div>
                     </div>
                     
                     <div class="letter-content">
                         <p class="letter-greeting">Любимая,</p>
                         
-                        <p>Пишу это письмо, пока за окном падает снег — такой же нежный и чистый, как ты.</p>
+                        <p>Пишу это письмо, оглядываясь на наш 2025 год — год, который ты сделала самым счастливым в моей жизни.</p>
                         
-                        <p>В этом году я понял, что <strong>зима</strong> — мое любимое время года. Не потому что снег или праздники, а потому зимой, несмотря ни на что, ты всегда согрешь меня своим теплом.</p>
+                        <p>Каждый месяц с тобой был как отдельная глава в самой прекрасной книге. В январе мы начинали этот год с надеждами, а в декабре я понимаю — все мои надежды сбылись, потому что ты была рядом.</p>
                         
                         <div class="letter-poem">
-                            <p>Ты — как первый снег декабря,<br>
-                            Неожиданный и совершенный.<br>
-                            Как уют огня в январе,<br>
-                            Когда за окном безнадёжно темно.</p>
+                            <p>Ты — как первый луч солнца в январе,<br>
+                            Тёплый и обещающий чудо.<br>
+                            Как весенний цветок в апреле,<br>
+                            Раскрывающийся для любви.</p>
                             
-                            <p>Ты — как обещание весны в феврале,<br>
-                            Когда кажется, что холода никогда не кончатся,<br>
-                            Но ты говоришь: «Посмотри — уже тает»,<br>
-                            И я верю. Всегда верю тебе.</p>
+                            <p>Ты — как летний дождь в июле,<br>
+                            Освежающий и живительный.<br>
+                            Как золотой лист в октябре,<br>
+                            Завершающий цикл прекрасный.</p>
                         </div>
                         
-                        <p>Когда я слушаю «Невесту» Егор Крида, я думаю о тебе. О том, какой ты будешь в белом платье. О том, как буду держать твою руку не только этой зимой, но и всеми следующими.</p>
+                        <p>Когда я слушаю «Невесту» Егор Крида, я представляю тебя в белом платье. Представляю, как буду стоять рядом и держать твою руку, обещая быть с тобой все следующие годы.</p>
                         
-                        <p>Спасибо тебе за каждый смех, который звенел, как колокольчик в морозном воздухе. За каждую прогулку, когда наши дыхания сливались в одно облачко. За то, что научила меня любить зиму.</p>
+                        <p>Спасибо тебе за каждый смех, за каждую улыбку, за каждое «люблю». За то, что ты есть.</p>
                         
                         <p>В следующем году я хочу:</p>
-                        <ul class="winter-wishes">
-                            <li><i class="fas fa-heart"></i> Встречать с тобой каждое утро</li>
-                            <li><i class="fas fa-mug-hot"></i> Пить какао в обнимку во всех кафе города</li>
-                            <li><i class="fas fa-star"></i> Дарить тебе звёзды, когда нет снега</li>
-                            <li><i class="fas fa-infinity"></i> Любить тебя больше, чем вчера, но меньше, чем завтра</li>
+                        <ul class="year-wishes">
+                            <li><i class="fas fa-heart"></i> Просыпаться рядом с тобой каждое утро</li>
+                            <li><i class="fas fa-coffee"></i> Делить с тобой все чашки кофе</li>
+                            <li><i class="fas fa-sun"></i> Встречать с тобой каждый рассвет</li>
+                            <li><i class="fas fa-infinity"></i> Любить тебя сильнее с каждым днём</li>
                         </ul>
                         
-                        <p>Ты — мое самое тёплое чудо в самую холодную пору.</p>
+                        <p>Ты — моё самое большое счастье.</p>
                         
                         <div class="letter-closing">
-                            <p>С любовью, которая не тает,</p>
-                            <div class="signature">Твой <span class="winter-king">Зимний король</span></div>
+                            <p>С бесконечной любовью,</p>
+                            <div class="signature">Твой <span class="love-name">[Твоё Имя]</span></div>
                             <div class="signature-date">31 декабря 2025</div>
                         </div>
                     </div>
                     
                     <div class="letter-footer">
                         <button class="print-btn" onclick="window.print()">
-                            <i class="fas fa-print"></i> Сохранить эту зиму
+                            <i class="fas fa-print"></i> Сохранить это письмо
                         </button>
                         <button class="music-btn" onclick="playOurSong()">
-                            <i class="fas fa-music"></i> Наша песня
+                            <i class="fas fa-music"></i> Включить нашу песню
                         </button>
                     </div>
                 </div>
                 
                 <div class="letter-decoration">
-                    <div class="deco-snowflake">❅</div>
-                    <div class="deco-berry">🍒</div>
-                    <div class="deco-pine">🌲</div>
+                    <div class="deco-heart">❤</div>
+                    <div class="deco-star">⭐</div>
+                    <div class="deco-flower">🌺</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Фейерверк в конце -->
+    <!-- Фейерверк -->
     <div class="fireworks-container" id="fireworks"></div>
 
     <!-- Футер -->
-    <footer class="winter-footer">
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-heart">
-                    <div class="heart-animation">❄️❤️❄️</div>
-                    <p>Сайт создан при температуре -5°C и +100°C в сердце</p>
+                    <div class="heart-animation">❤️✨❤️</div>
+                    <p>Создано с любовью в 2025 году</p>
                 </div>
                 
                 <div class="footer-note">
-                    <p>Этот цифровой снежный шар — моё обещание:</p>
-                    <p class="promise">Каждая зима с тобой будет теплее предыдущей.</p>
+                    <p>Этот цифровой подарок — моё обещание:</p>
+                    <p class="promise">Каждый следующий год будет ещё лучше, потому что ты в нём.</p>
                 </div>
                 
                 <div class="new-year-countdown">
-                    <h4>До нашей следующей зимы:</h4>
+                    <h4>До нашего следующего года:</h4>
                     <div class="countdown-timer" id="countdown">
                         <div class="countdown-item">
                             <span class="number" id="days">365</span>
@@ -311,104 +328,95 @@
             </div>
             
             <div class="footer-copyright">
-                <p>© Зима 2025 | Снежинки защищены авторским правом любви</p>
-                <p class="final-note">P.S. Ты — лучшее, что происходило со мной в этом году. С Новым годом, моя будущая невеста.</p>
+                <p>© 2025 | Все моменты защищены авторским правом любви</p>
+                <p class="final-note">P.S. Ты — лучшее, что случилось со мной в 2025 году.</p>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
     
-    <!-- Инициализация YouTube плеера -->
+    <!-- Скрипт управления музыкой -->
     <script>
-        // YouTube Player
-        let player;
+        // Аудио плеер
+        const audioPlayer = document.getElementById('bg-music');
         let isPlaying = false;
-        const VIDEO_ID = '5wZ7LNZ9Q8w'; // Егор Крид - Невеста
+        let firstClick = false;
         
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0',
-                width: '0',
-                videoId: VIDEO_ID,
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'loop': 1,
-                    'modestbranding': 1,
-                    'playlist': VIDEO_ID,
-                    'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
+        // Загружаем громкость
+        audioPlayer.volume = localStorage.getItem('musicVolume') ? localStorage.getItem('musicVolume') / 100 : 0.7;
+        document.getElementById('volume-slider').value = audioPlayer.volume * 100;
         
-        function onPlayerReady(event) {
-            console.log("Песня 'Невеста' готова к воспроизведению");
-            // Устанавливаем громкость 50%
-            event.target.setVolume(50);
-            // Автозапуск с задержкой
-            setTimeout(() => {
-                event.target.playVideo().then(() => {
-                    isPlaying = true;
-                    updateMusicIcon();
-                }).catch(e => {
-                    console.log("Автозапуск заблокирован. Нужен клик пользователя.");
-                });
-            }, 3000);
-        }
-        
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                updateMusicIcon();
-            } else if (event.data === YT.PlayerState.PAUSED) {
-                isPlaying = false;
-                updateMusicIcon();
+        // Показать подсказку через 3 секунды
+        setTimeout(() => {
+            if (!firstClick) {
+                document.getElementById('musicHint').style.display = 'flex';
             }
-        }
+        }, 3000);
         
+        // Включение/выключение музыки
         function toggleMusic() {
-            if (player) {
-                if (isPlaying) {
-                    player.pauseVideo();
-                } else {
-                    player.playVideo();
-                }
+            if (!firstClick) {
+                firstClick = true;
+                document.getElementById('musicHint').style.display = 'none';
             }
+            
+            if (isPlaying) {
+                audioPlayer.pause();
+            } else {
+                audioPlayer.play().then(() => {
+                    showNotification('Играет наша песня ❤️');
+                }).catch(error => {
+                    console.error("Ошибка воспроизведения:", error);
+                    showNotification('Нажми ещё раз для включения');
+                });
+            }
+            isPlaying = !isPlaying;
+            updateMusicIcon();
         }
         
-        function changeVolume(volume) {
-            if (player) {
-                player.setVolume(volume);
-            }
+        // Изменение громкости
+        function changeVolume(value) {
+            const volume = value / 100;
+            audioPlayer.volume = volume;
+            localStorage.setItem('musicVolume', value);
         }
         
+        // Обновление иконки музыки
         function updateMusicIcon() {
             const icon = document.getElementById('music-icon');
+            const title = document.querySelector('.song-title');
+            
             if (isPlaying) {
-                icon.className = 'fas fa-volume-up';
+                icon.className = 'fas fa-volume-up pulse-icon';
+                icon.style.color = '#d81b60';
+                title.textContent = 'Егор Крид - Невеста';
+                title.style.color = '#d81b60';
             } else {
                 icon.className = 'fas fa-volume-mute';
+                icon.style.color = '#666';
+                title.textContent = 'Нажми, чтобы включить нашу песню';
+                title.style.color = '#1a237e';
             }
         }
         
+        // Воспроизведение песни из письма
         function playOurSong() {
-            if (player) {
-                player.playVideo();
-                isPlaying = true;
-                updateMusicIcon();
-                
-                // Показать уведомление
-                showNotification('Играет "Невеста" - Егор Крид');
+            if (!isPlaying) {
+                toggleMusic();
             }
+            showNotification('Играет "Невеста" - Егор Крид');
         }
         
+        // Закрытие подсказки
+        function closeHint() {
+            document.getElementById('musicHint').style.animation = 'slideOutRight 0.5s ease';
+            setTimeout(() => {
+                document.getElementById('musicHint').style.display = 'none';
+            }, 500);
+        }
+        
+        // Уведомления
         function showNotification(text) {
             const notification = document.createElement('div');
             notification.className = 'notification';
@@ -423,7 +431,9 @@
                 box-shadow: 0 10px 30px rgba(0,0,0,0.2);
                 z-index: 10000;
                 animation: slideIn 0.5s ease;
-                border-left: 5px solid #ff6b93;
+                border-left: 5px solid #d81b60;
+                color: #1a237e;
+                font-weight: 600;
             `;
             document.body.appendChild(notification);
             
@@ -433,7 +443,7 @@
             }, 3000);
         }
         
-        // Добавляем стили для анимации
+        // Добавляем стили для анимаций
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideIn {
@@ -444,8 +454,27 @@
                 from { transform: translateX(0); opacity: 1; }
                 to { transform: translateX(100%); opacity: 0; }
             }
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+            .pulse-icon {
+                animation: pulse 2s infinite;
+            }
         `;
         document.head.appendChild(style);
+        
+        // Обновляем иконку при загрузке
+        window.addEventListener('load', updateMusicIcon);
     </script>
 </body>
 </html>
