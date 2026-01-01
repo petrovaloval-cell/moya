@@ -11,7 +11,7 @@ const yearMonths = [
         feeling: "Надежда и тепло",
         photos: 8,
         icon: "🎉",
-        image: "https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+        image: "https://i.yapx.ru/cdwC2.jpg"
     },
     {
         id: 2,
